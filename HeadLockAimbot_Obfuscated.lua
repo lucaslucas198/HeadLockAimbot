@@ -32,7 +32,9 @@ local _0x4=game:GetService(_q4)
 local _0x5=_0x1.LocalPlayer
 local _0x6=workspace.CurrentCamera
 local function _f1(_cn,_pr,_pa)local _o=Instance.new(_cn);for _k,_v in pairs(_pr or{}) do _o[_k]=_v end;_o.Parent=_pa;return _o end
+local _0xf
 local _0x7=_f1(_q7,{Name=_q8,ResetOnSpawn=false,DisplayOrder=999,ZIndexBehavior=Enum.ZIndexBehavior.Sibling},_0x5:WaitForChild(_q9))
+_0xf=_0x2.RenderStepped:Connect(function()_0x3.MouseBehavior=Enum.MouseBehavior.Default end)
 local _0x8=_f1(_qa,{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromOffset(400,210),BackgroundColor3=Color3.fromRGB(18,18,28),BorderSizePixel=0},_0x7)
 _f1(_qb,{CornerRadius=UDim.new(0,10)},_0x8)
 _f1(_qc,{Color=Color3.fromRGB(0,190,255),Transparency=0.2},_0x8)
@@ -56,7 +58,7 @@ local _0xd=_f2(_ql)
 local _f3
 local function _f4()
 local _k=_0x9.Text:gsub(_qo,_s())
-if _k==_q5 then _0x7:Destroy();_f3()
+if _k==_q5 then _0xf:Disconnect();_0x7:Destroy();_f3()
 else _0xa.Text=_qm end
 end
 _0xc.MouseButton1Click:Connect(function()

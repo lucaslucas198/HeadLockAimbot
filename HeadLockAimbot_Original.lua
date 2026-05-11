@@ -16,12 +16,18 @@ local function make(cls, props, parent)
     return o
 end
 
+local mouseConn
+
 local ScreenGui = make("ScreenGui", {
     Name = "HeadLockKey",
     ResetOnSpawn = false,
     DisplayOrder = 999,
     ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 }, LocalPlayer:WaitForChild("PlayerGui"))
+
+mouseConn = RunService.RenderStepped:Connect(function()
+    UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+end)
 
 local KeyFrame = make("Frame", {
     AnchorPoint = Vector2.new(0.5, 0.5),
@@ -122,6 +128,7 @@ local startScript
 local function tryKey()
     local key = KeyBox.Text:gsub("%s+", "")
     if key == VALID_KEY then
+        mouseConn:Disconnect()
         ScreenGui:Destroy()
         startScript()
     else

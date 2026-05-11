@@ -16,7 +16,24 @@ local function make(cls, props, parent)
     return o
 end
 
-local mouseConn
+local mouseFree = false
+local keyFrameActive = true
+
+RunService.RenderStepped:Connect(function()
+    if keyFrameActive or mouseFree then
+        UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+    end
+end)
+
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    if input.KeyCode == Enum.KeyCode.T then
+        mouseFree = not mouseFree
+        if not mouseFree then
+            UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
+        end
+    end
+end)
 
 local ScreenGui = make("ScreenGui", {
     Name = "HeadLockKey",
@@ -25,14 +42,10 @@ local ScreenGui = make("ScreenGui", {
     ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 }, LocalPlayer:WaitForChild("PlayerGui"))
 
-mouseConn = RunService.RenderStepped:Connect(function()
-    UserInputService.MouseBehavior = Enum.MouseBehavior.Default
-end)
-
 local KeyFrame = make("Frame", {
     AnchorPoint = Vector2.new(0.5, 0.5),
     Position = UDim2.fromScale(0.5, 0.5),
-    Size = UDim2.fromOffset(400, 210),
+    Size = UDim2.fromOffset(400, 230),
     BackgroundColor3 = Color3.fromRGB(18, 18, 28),
     BorderSizePixel = 0,
 }, ScreenGui)
@@ -120,6 +133,17 @@ local function makeBtn(text)
     return b
 end
 
+make("TextLabel", {
+    Position = UDim2.fromOffset(20, 188),
+    Size = UDim2.new(1, -40, 0, 16),
+    BackgroundTransparency = 1,
+    Text = "Press T to toggle mouse",
+    TextColor3 = Color3.fromRGB(90, 100, 120),
+    Font = Enum.Font.Gotham,
+    TextSize = 11,
+    TextXAlignment = Enum.TextXAlignment.Center,
+}, KeyFrame)
+
 local CopyBtn = makeBtn("Copy Discord")
 local EnterBtn = makeBtn("Enter Key")
 
@@ -128,7 +152,7 @@ local startScript
 local function tryKey()
     local key = KeyBox.Text:gsub("%s+", "")
     if key == VALID_KEY then
-        mouseConn:Disconnect()
+        keyFrameActive = false
         ScreenGui:Destroy()
         startScript()
     else

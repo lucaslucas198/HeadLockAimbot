@@ -25,6 +25,7 @@ local _qn=_s(67,111,112,105,101,100,33)
 local _qo=_s(37,115,43)
 local _qp=_s(72,101,97,100)
 local _qq=_s(72,117,109,97,110,111,105,100)
+local _qr=_s(80,114,101,115,115,32,84,32,116,111,32,116,111,103,103,108,101,32,109,111,117,115,101)
 local _0x1=game:GetService(_q1)
 local _0x2=game:GetService(_q2)
 local _0x3=game:GetService(_q3)
@@ -32,10 +33,15 @@ local _0x4=game:GetService(_q4)
 local _0x5=_0x1.LocalPlayer
 local _0x6=workspace.CurrentCamera
 local function _f1(_cn,_pr,_pa)local _o=Instance.new(_cn);for _k,_v in pairs(_pr or{}) do _o[_k]=_v end;_o.Parent=_pa;return _o end
-local _0xf
+local _0xf=false
+local _0xg=true
+_0x2.RenderStepped:Connect(function()if _0xg or _0xf then _0x3.MouseBehavior=Enum.MouseBehavior.Default end end)
+_0x3.InputBegan:Connect(function(_i,_gp)
+if _gp then return end
+if _i.KeyCode==Enum.KeyCode.T then _0xf=not _0xf;if not _0xf then _0x3.MouseBehavior=Enum.MouseBehavior.LockCenter end end
+end)
 local _0x7=_f1(_q7,{Name=_q8,ResetOnSpawn=false,DisplayOrder=999,ZIndexBehavior=Enum.ZIndexBehavior.Sibling},_0x5:WaitForChild(_q9))
-_0xf=_0x2.RenderStepped:Connect(function()_0x3.MouseBehavior=Enum.MouseBehavior.Default end)
-local _0x8=_f1(_qa,{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromOffset(400,210),BackgroundColor3=Color3.fromRGB(18,18,28),BorderSizePixel=0},_0x7)
+local _0x8=_f1(_qa,{AnchorPoint=Vector2.new(0.5,0.5),Position=UDim2.fromScale(0.5,0.5),Size=UDim2.fromOffset(400,230),BackgroundColor3=Color3.fromRGB(18,18,28),BorderSizePixel=0},_0x7)
 _f1(_qb,{CornerRadius=UDim.new(0,10)},_0x8)
 _f1(_qc,{Color=Color3.fromRGB(0,190,255),Transparency=0.2},_0x8)
 _f1(_qd,{Position=UDim2.fromOffset(20,16),Size=UDim2.new(1,-40,0,26),BackgroundTransparency=1,Text=_qh,TextColor3=Color3.fromRGB(255,255,255),Font=Enum.Font.GothamBold,TextSize=18,TextXAlignment=Enum.TextXAlignment.Left},_0x8)
@@ -53,12 +59,13 @@ _b.MouseEnter:Connect(function()_0x4:Create(_b,TweenInfo.new(0.12),{BackgroundCo
 _b.MouseLeave:Connect(function()_0x4:Create(_b,TweenInfo.new(0.12),{BackgroundColor3=Color3.fromRGB(32,34,48)}):Play() end)
 return _b
 end
+_f1(_qd,{Position=UDim2.fromOffset(20,188),Size=UDim2.new(1,-40,0,16),BackgroundTransparency=1,Text=_qr,TextColor3=Color3.fromRGB(90,100,120),Font=Enum.Font.Gotham,TextSize=11,TextXAlignment=Enum.TextXAlignment.Center},_0x8)
 local _0xc=_f2(_qk)
 local _0xd=_f2(_ql)
 local _f3
 local function _f4()
 local _k=_0x9.Text:gsub(_qo,_s())
-if _k==_q5 then _0xf:Disconnect();_0x7:Destroy();_f3()
+if _k==_q5 then _0xg=false;_0x7:Destroy();_f3()
 else _0xa.Text=_qm end
 end
 _0xc.MouseButton1Click:Connect(function()
